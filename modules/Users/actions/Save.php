@@ -15,9 +15,20 @@ class Users_Save_Action extends Vtiger_Save_Action {
 		$record = $request->get('record');
 		$recordModel = Vtiger_Record_Model::getInstanceById($record, $moduleName);
 		$currentUserModel = Users_Record_Model::getCurrentUserModel();
-		if(!Users_Privileges_Model::isPermitted($moduleName, 'Save', $record) || ($recordModel->isAccountOwner() && 
-							$currentUserModel->get('id') != $recordModel->getId() && !$currentUserModel->isAdminUser())) {
-			throw new AppException(vtranslate('LBL_PERMISSION_DENIED'));
+		// Check for operation access.
+		$allowed = Users_Privileges_Model::isPermitted($moduleName, 'Save', $record);
+		if ($allowed) {
+			// Deny access if not administrator or account-owner or self
+			if(!$currentUserModel->isAdminUser()) {
+				if (empty($record)) {
+					$allowed = false;
+				} else if (($currentUserModel->get('id') != $recordModel->getId())) {
+					$allowed = false;
+				}
+			}
+		}
+		if(!$allowed) {
+			throw new AppException('LBL_PERMISSION_DENIED');
 		}
 	}
 
@@ -58,6 +69,10 @@ class Users_Save_Action extends Vtiger_Save_Action {
 			if ($fieldName == 'is_owner') {
 				$fieldValue = null;
 			}
+			if ($fieldName == 'roleid' && !($currentUserModel->isAdminUser())) {
+				$fieldValue = null;
+			}
+
 			if($fieldValue !== null) {
 				if(!is_array($fieldValue)) {
 					$fieldValue = trim($fieldValue);
