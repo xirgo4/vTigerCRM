@@ -14,8 +14,7 @@
  ********************************************************************************/
 
 require_once 'include/logging.php';
-include_once 'libraries/adodb/adodb.inc.php';
-require_once 'libraries/adodb/adodb-xmlschema.inc.php';
+require_once 'libraries/adodb_vtigerfix/adodb.inc.php';
 
 $log = Logger::getLogger('VT');
 $logsqltm = Logger::getLogger('SQLTIME');
@@ -935,7 +934,10 @@ class PearDatabase{
 
 		$this->checkConnection();
 		$db = $this->database;
+
+		require_once 'libraries/adodb_vtigerfix/adodb-xmlschema.inc.php';
 		$schema = new adoSchema( $db );
+		
 		//Debug Adodb XML Schema
 		$schema->XMLS_DEBUG = TRUE;
 		//Debug Adodb
