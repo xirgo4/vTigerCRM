@@ -138,7 +138,7 @@ class Rss_Record_Model extends Vtiger_Record_Model {
 			$recordModel = new self();
 			$recordModel->setData($rowData);
             $recordModel->setModule($qualifiedModuleName);
-            $rss = fetch_rss(decode_html($recordModel->get('rssurl')));
+            $rss = fetch_feed_and_transform(decode_html($recordModel->get('rssurl')));
             $rss->items = $recordModel->setSenderInfo($rss->items);
             $recordModel->setRssValues($rss);
             $recordModel->setRssObject($rss);
@@ -180,7 +180,7 @@ class Rss_Record_Model extends Vtiger_Record_Model {
      * @return <boolean> 
      */
     public function validateRssUrl($url) {
-        $rss = fetch_rss($url);
+        $rss = fetch_feed_and_transform($url);
 	
 		if($rss) {
             $this->setRssValues($rss);
