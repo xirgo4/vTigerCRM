@@ -1,0 +1,4 @@
+<Files ~ "^.*.(md|php|pem|p12)">  
+  Order Allow,Deny
+  Deny from all
+</Files>
