@@ -696,8 +696,6 @@ function vtlib_purify($input, $ignore = false) {
                 'data' => true
             );
 
-            include_once __DIR__ . '/../../libraries/htmlpurifier410/library/HTMLPurifier.auto.php';
-
             $config = HTMLPurifier_Config::createDefault();
             $config->set('Core.Encoding', $use_charset);
             $config->set('Cache.SerializerPath', "$use_root_directory/test/vtlib");
