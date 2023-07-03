@@ -108,7 +108,7 @@ Vtiger_Detail_Js("Leads_Detail_Js", {
                     'parent': '#leadAccordion',
                     'toggle': false
                 });
-                app.helper.showVerticalScroll(jQuery(data).find('#leadAccordion'), {'setHeight': '350px'});
+                app.helper.showVerticalScroll(jQuery(data).find('#leadAccordion'), {'setHeight': 'auto'});
                 editViewObj.registerBasicEvents(data);
                 var checkBoxElements = instance.getConvertLeadModules();
                 jQuery.each(checkBoxElements, function (index, element) {
