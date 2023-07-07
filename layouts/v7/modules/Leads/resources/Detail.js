@@ -118,6 +118,7 @@ Vtiger_Detail_Js("Leads_Detail_Js", {
                 instance.registerForDisableCheckEvent();
                 instance.registerConvertLeadEvents();
                 instance.registerConvertLeadSubmit();
+                app.event.trigger('post.ConvertLeadForm.show');
             }
             app.helper.showModal(data, {"cb": callBackFunction});
         }
