@@ -23,7 +23,7 @@ require_once('config.php');
 @include_once('config.performance.php');
 global $PERFORMANCE_CONFIG;
 if(isset($PERFORMANCE_CONFIG) && isset($PERFORMANCE_CONFIG['LOG4PHP_DEBUG']) && $PERFORMANCE_CONFIG['LOG4PHP_DEBUG']) {
-        define('LOG4PHP_DIR', 'libraries/log4php.debug');
+        define('LOG4PHP_DIR', 'libraries/log4php');
 } else {
         define('LOG4PHP_DIR', 'libraries/log4php');
 }

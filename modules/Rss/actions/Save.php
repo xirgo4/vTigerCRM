@@ -7,7 +7,6 @@
  * Portions created by vtiger are Copyright (C) vtiger.
  * All Rights Reserved.
  *************************************************************************************/
-require_once('libraries/magpierss/rss_fetch.inc');
 
 class Rss_Save_Action extends Vtiger_Save_Action {
 

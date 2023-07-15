@@ -8,9 +8,7 @@
  * All Rights Reserved.
  ************************************************************************************/
 
-vimport ('~/libraries/Smarty/libs/SmartyBC.class.php');
-
-class Vtiger_Viewer extends SmartyBC {
+class Vtiger_Viewer extends Smarty {
 
 	const DEFAULTLAYOUT = 'v7';
 	const DEFAULTTHEME  = 'softed';
@@ -78,6 +76,11 @@ class Vtiger_Viewer extends SmartyBC {
 			
 			$this->log("URI: $debugViewerURI, TYPE: " . $_SERVER['REQUEST_METHOD']);
 		}
+	}
+
+	// Backward compatible to SmartyBC
+	function get_template_vars($name = NULL) {
+		return $this->getTemplateVars($name);
 	}
 	
 	function safeHtmlFilter($content, $smarty) {
