@@ -14,6 +14,8 @@
     },
     "minimum-stability": "stable",
     "require": {
+	"ext-mysqli": "*",
+	"ext-imap": "*",
         "smarty/smarty": "^4.3",
         "dg/rss-php": "^1.5",
         "ezyang/htmlpurifier": "^4.16",
