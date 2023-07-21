@@ -8,7 +8,7 @@
  * All Rights Reserved.
  ************************************************************************************/
 
-class Vtiger_Request {
+class Vtiger_Request implements ArrayAccess {
 
 	// Datastore
 	private $valuemap;
