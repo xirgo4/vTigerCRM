@@ -22,6 +22,11 @@ include('config.inc.php');
 
 $THIS_DIR = dirname(__FILE__);
 
+/* Pre-install overrides */
+if (!isset($dbconfig)) {
+	error_reporting(E_ERROR & ~E_NOTICE & ~E_DEPRECATED);
+}
+
 if (file_exists($THIS_DIR.'/config_override.php')) {
 	include_once $THIS_DIR.'/config_override.php';
 }
