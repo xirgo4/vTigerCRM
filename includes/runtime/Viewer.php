@@ -58,11 +58,6 @@ class Vtiger_Viewer extends Smarty {
 		$this->setTemplateDir(array($templatesDir));
 		$this->setCompileDir($compileDir);		
 
-		// FOR SECURITY
-		$policy = new Smarty_Security($this);
-		$policy->allow_super_globals = false;
-		$this->enableSecurity($policy);
-		
 		// FOR DEBUGGING: We need to have this only once.
 		static $debugViewerURI = false;
 		if (self::$debugViewer && $debugViewerURI === false) {
