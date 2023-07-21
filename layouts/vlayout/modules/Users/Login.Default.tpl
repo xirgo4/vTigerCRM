@@ -103,22 +103,22 @@
 												<h3 class="login-header">Login to Vtiger CRM</h3>
 		</div>
 											<form class="form-horizontal login-form" style="margin:0;" action="index.php?module=Users&action=Login" method="POST">
-			{if isset($smarty.request.error)}
+			{if isset($REQ.error)}
 			<div class="alert alert-error">
 				<p>Invalid username or password.</p>
 			</div>
 			{/if}
-												{if isset($smarty.request.fpError)}
+												{if isset($REQ.fpError)}
 													<div class="alert alert-error">
 														<p>Invalid Username or Email address.</p>
 													</div>
 												{/if}
-												{if isset($smarty.request.status)}
+												{if isset($REQ.status)}
 													<div class="alert alert-success">
 														<p>Mail has been sent to your inbox, please check your e-mail.</p>
 													</div>
 												{/if}
-												{if isset($smarty.request.statusError)}
+												{if isset($REQ.statusError)}
 													<div class="alert alert-error">
 														<p>Outgoing mail server was not configured.</p>
 													</div>
