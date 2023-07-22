@@ -3121,7 +3121,7 @@ class TrackableObject implements ArrayAccess, IteratorAggregate {
 	}
 
 	function offsetExists($key) {
-		return isset($this->storage[$key]);
+		return isset($this->storage[$key]) || array_key_exists($key, $this->storage);
 	}
 
 	function offsetSet($key, $value) {
@@ -3142,7 +3142,7 @@ class TrackableObject implements ArrayAccess, IteratorAggregate {
 	}
 
 	public function offsetGet($key) {
-		return isset($this->storage[$key]) ? $this->storage[$key] : null;
+		return isset($this->storage[$key]) || array_key_exists($key, $this->storage) ? $this->storage[$key] : null;
 	}
 
 	public function getIterator() {
