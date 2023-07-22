@@ -258,6 +258,7 @@ Settings_Vtiger_Edit_Js("Settings_Workflows_Edit_Js", {
          var uiType = jQuery(e.currentTarget).find('option:selected').data('ui');
          jQuery('.fieldValue', data).hide();
          jQuery('[data-' + uiType + ']', data).show();
+         valueType = app.helper.purifyContent(valueType);
          if (valueType == 'fieldname') {
             useFieldContainer.removeClass('hide');
             useFunctionContainer.addClass('hide');

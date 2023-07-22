@@ -328,6 +328,7 @@ if (typeof (Vtiger_Import_Js) == 'undefined') {
                 var copyOfDefaultValueWidget = jQuery(':first', defaultValueContainer).detach();
                 copyOfDefaultValueWidget.appendTo(allDefaultValuesContainer);
             }
+            selectedFieldName = app.helper.purifyContent(selectedFieldName);
             var selectedFieldDefValueContainer = jQuery('#' + selectedFieldName + '_defaultvalue_container', allDefaultValuesContainer);
             var defaultValueWidget = selectedFieldDefValueContainer.detach();
             defaultValueWidget.appendTo(defaultValueContainer);
