@@ -26,21 +26,23 @@ class Reports_Save_Action extends Vtiger_Save_Action {
 				throw new AppException(vtranslate('LBL_PERMISSION_DENIED'));
 			}
 		}
-                $selectedFields = $request->get('selected_fields');
-                if (count($selectedFields) > 0) {
-                    foreach ($selectedFields as $field) {
-                        list($tablename, $colname, $module_field, $fieldname, $single) = split(":", $field);
-                        list($module, $fieldName) = split("_", $module_field, 2);
-                        $moduleModel = Vtiger_Module_Model::getInstance($module);
-                        $fieldModel = Vtiger_Field_Model::getInstance($fieldname, $moduleModel);
 
-                        if ($fieldModel->table !== $tablename) {
-                            throw new AppException(vtranslate('LBL_PERMISSION_DENIED'));
-                        } elseif ($fieldModel->column !== $colname) {
-                            throw new AppException(vtranslate('LBL_PERMISSION_DENIED'));
-                        }
-                    }
-                }
+             	$selectedFields = $request->get('selected_fields');
+		$groupbyfields = $request->get('groupbyfield');
+		$fieldsData = array($selectedFields, $groupbyfields);
+
+		foreach ($fieldsData as $selectedField){
+			foreach ($selectedField as $field) {
+				list($tablename, $colname, $module_field, $fieldname, $single) = split(":", $field);
+				list($module, $fieldName) = split("_", $module_field, 2);
+				$moduleModel = Vtiger_Module_Model::getInstance($module);
+				$fieldModel = Vtiger_Field_Model::getInstance($fieldname, $moduleModel);
+
+				if (($fieldModel->table !== $tablename) || ($fieldModel->column !== $colname)) {
+					throw new AppException(vtranslate('LBL_PERMISSION_DENIED'));
+				}
+			}
+		}  
 		return true;
 	}
 
