@@ -74,7 +74,9 @@ class VTCreateEntityTask extends VTTask {
 					$field = $fieldValue;
 					$module = $referenceModule;
 					if ($referenceModule == $entityType) {
-						$fieldValue = $newEntity->column_fields[$fieldValue];
+						$components = vtws_getIdComponents($entity->get($field));
+						$referenceRecordId = $components[1];
+						$fieldValue = $referenceRecordId;
 					} else if (php7_count($matches) > 0) {
 						$referenceField = $matches[1];
 						$referencedModule = $matches[2];
