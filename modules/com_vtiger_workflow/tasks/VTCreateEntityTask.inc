@@ -73,11 +73,8 @@ class VTCreateEntityTask extends VTTask {
 				if ($fieldValueType == 'fieldname') {
 					$field = $fieldValue;
 					$module = $referenceModule;
-					if ($referenceModule == $entityType) {
-						$components = vtws_getIdComponents($entity->get($field));
-						$referenceRecordId = $components[1];
-						$fieldValue = $referenceRecordId;
-					} else if (php7_count($matches) > 0) {
+					
+					if (php7_count($matches) > 0) {
 						$referenceField = $matches[1];
 						$referencedModule = $matches[2];
 						$referencedFieldName = $matches[3];
@@ -92,7 +89,7 @@ class VTCreateEntityTask extends VTTask {
 						$referenceFieldFocus = $this->getReferenceFieldFocus($referencedModule, $referenceField, $referenceRecordId);
 						$fieldValue = $referenceFieldFocus->column_fields[$referencedFieldName];
 					} else {
-						$fieldValue = decode_html($focus->column_fields[$fieldValue]);
+						$fieldValue = decode_html($focus->column_fields[$field]);
 					}
 
 					$moduleModel = Vtiger_Module_Model::getInstance($module);
