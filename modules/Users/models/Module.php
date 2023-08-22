@@ -126,11 +126,15 @@ class Users_Module_Model extends Vtiger_Module_Model {
 	*/
 	public function updateBaseCurrency($currencyName) {
 		$db = PearDatabase::getInstance();
-		$result = $db->pquery('SELECT currency_code, currency_symbol FROM vtiger_currencies WHERE currency_name = ?', array($currencyName));
+		$result = $db->pquery('SELECT currency_code, currency_symbol, currency_name FROM vtiger_currencies WHERE currency_name = ?', array($currencyName));
 		$num_rows = $db->num_rows($result);
 		if ($num_rows > 0) {
 			$currency_code = decode_html($db->query_result($result, 0, 'currency_code'));
 			$currency_symbol = decode_html($db->query_result($result, 0,'currency_symbol'));
+			$currencyName = decode_html($db->query_result($result, 0, 'currency_name')); // rewrite actual from table.
+		} else {
+			// Invalid currency name.
+			return;
 		}
 		$this->updateConfigFile($currencyName);
 		//Updating Database
