@@ -962,8 +962,10 @@ if (!function_exists('get_magic_quotes_gpc')) {
 }
 
 function php7_count($value) {
-	// PHP 8.x does not like count(null) or count(string)
-	return is_null($value) || !is_array($value) ? 0 : count($value);
+	// PHP 8.x does not allow count(null) or count(string)
+	if (is_null($value)) return 0;
+	if (!is_array($value)) return 1;
+	return count($value);
 }
 
 ?>
