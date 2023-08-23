@@ -968,4 +968,9 @@ function php7_count($value) {
 	return count($value);
 }
 
+function php7_sizeof($value) {
+	// PHP 8.x does not allow sizeof(null)
+	return php7_count($value);
+}
+
 ?>

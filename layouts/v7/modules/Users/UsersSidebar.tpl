@@ -12,7 +12,7 @@
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		<div class="settingsgroup-panel panel panel-default">
 			{foreach item=BLOCK_MENUS key=BLOCK_NAME from=$SETTINGS_MENU_LIST}
-				{assign var=NUM_OF_MENU_ITEMS value= $BLOCK_MENUS|@sizeof}
+				{assign var=NUM_OF_MENU_ITEMS value= $BLOCK_MENUS|@php7_sizeof}
 				{if $NUM_OF_MENU_ITEMS gt 0}
 					<div id="{$BLOCK_NAME}_accordion" class="app-nav" role="tab">
 						<div class="app-settings-accordion">
