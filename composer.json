@@ -17,6 +17,7 @@
 	"php": ">=7.2.0",
 	"ext-mysqli": "*",
 	"ext-imap": "*",
+	"ext-curl": "*",
         "smarty/smarty": "^4.3",
         "dg/rss-php": "^1.5",
         "ezyang/htmlpurifier": "^4.16",

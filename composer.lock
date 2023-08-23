@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "777505a6aeb9d33d2c556552865cfe70",
+    "content-hash": "74af97ed9d563a7f2dd29a31b422cbe4",
     "packages": [
         {
             "name": "dg/rss-php",
@@ -261,7 +261,8 @@
     "platform": {
         "php": ">=7.2.0",
         "ext-mysqli": "*",
-        "ext-imap": "*"
+        "ext-imap": "*",
+        "ext-curl": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
