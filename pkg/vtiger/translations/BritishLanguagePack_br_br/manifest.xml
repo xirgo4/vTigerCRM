@@ -7,7 +7,7 @@
 	<version>1.0.1</version>
 	<dependencies>
 		<vtiger_version>6.1.0</vtiger_version>
-		<vtiger_max_version>7.*</vtiger_max_version>
+		<vtiger_max_version>8.*</vtiger_max_version>
 	</dependencies>
 	<license>
 		<inline><![CDATA[

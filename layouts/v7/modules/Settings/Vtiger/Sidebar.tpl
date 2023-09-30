@@ -19,7 +19,7 @@
 				{foreach item=BLOCK_MENUS from=$SETTINGS_MENUS}
 					{assign var=BLOCK_NAME value=$BLOCK_MENUS->getLabel()}
 					{assign var=BLOCK_MENU_ITEMS value=$BLOCK_MENUS->getMenuItems()}
-					{assign var=NUM_OF_MENU_ITEMS value= $BLOCK_MENU_ITEMS|@sizeof}
+					{assign var=NUM_OF_MENU_ITEMS value= $BLOCK_MENU_ITEMS|@php7_sizeof}
 					{if $NUM_OF_MENU_ITEMS gt 0}
 						<div class="settingsgroup-panel panel panel-default instaSearch">
 							<div id="{$BLOCK_NAME}_accordion" class="app-nav" role="tab">

@@ -656,7 +656,7 @@ function isReadPermittedBySharing($module,$tabid,$actionid,$record_id)
 		foreach($relatedModuleArray as $parModId)
 		{
 			$parRecordOwner=getParentRecordOwner($tabid,$parModId,$record_id);
-			if(sizeof($parRecordOwner) > 0)
+			if(php7_sizeof($parRecordOwner) > 0)
 			{
 				$parModName=getTabname($parModId);
 				$rel_var=$parModName."_".$module."_share_read_permission";
@@ -796,7 +796,7 @@ function isReadWritePermittedBySharing($module,$tabid,$actionid,$record_id)
 		foreach($relatedModuleArray as $parModId)
 		{
 			$parRecordOwner=getParentRecordOwner($tabid,$parModId,$record_id);
-			if(sizeof($parRecordOwner) > 0)
+			if(php7_sizeof($parRecordOwner) > 0)
 			{
 				$parModName=getTabname($parModId);
 				$rel_var=$parModName."_".$module."_share_write_permission";
@@ -1055,7 +1055,7 @@ function getRoleInformation($roleid)
 	$parentrole=$adb->query_result($result,0,'parentrole');
 	$roledepth=$adb->query_result($result,0,'depth');
 	$parentRoleArr=explode('::',$parentrole);
-	$immediateParent=$parentRoleArr[sizeof($parentRoleArr)-2];
+	$immediateParent=$parentRoleArr[php7_sizeof($parentRoleArr)-2];
 	$roleDet=Array();
 	$roleDet[]=$rolename;
 	$roleDet[]=$parentrole;
@@ -1236,7 +1236,7 @@ function deleteRoleRelatedSharingRules($roleId)
 				$colNameArr=explode('::',$colname);
 				$query="select shareid from ".$tablename." where ".$colNameArr[0]."=?";
 				$params = array($roleId);
-				if(sizeof($colNameArr) >1)
+				if(php7_sizeof($colNameArr) >1)
 				{
 						$query .=" or ".$colNameArr[1]."=?";
 						array_push($params, $roleId);
@@ -1275,7 +1275,7 @@ function deleteGroupRelatedSharingRules($grpId)
 				$colNameArr=explode('::',$colname);
 				$query="select shareid from ".$tablename." where ".$colNameArr[0]."=?";
 				$params = array($grpId);
-				if(sizeof($colNameArr) >1)
+				if(php7_sizeof($colNameArr) >1)
 				{
 						$query .=" or ".$colNameArr[1]."=?";
 						array_push($params, $grpId);
@@ -1455,7 +1455,7 @@ function getCombinedUserGlobalPermissions($userId)
 	$log->debug("Entering getCombinedUserGlobalPermissions(".$userId.") method ...");
 	global $adb;
 	$profArr=getUserProfile($userId);
-	$no_of_profiles=sizeof($profArr);
+	$no_of_profiles=php7_sizeof($profArr);
 	$userGlobalPerrArr=Array();
 
 	$userGlobalPerrArr=getProfileGlobalPermission($profArr[0]);
@@ -1501,7 +1501,7 @@ function getCombinedUserTabsPermissions($userId)
 	$log->debug("Entering getCombinedUserTabsPermissions(".$userId.") method ...");
 	global $adb;
 	$profArr=getUserProfile($userId);
-	$no_of_profiles=sizeof($profArr);
+	$no_of_profiles=php7_sizeof($profArr);
 	$userTabPerrArr=Array();
 
 	$userTabPerrArr=getProfileTabsPermission($profArr[0]);
@@ -1546,7 +1546,7 @@ function getCombinedUserActionPermissions($userId)
 	$log->debug("Entering getCombinedUserActionPermissions(".$userId.") method ...");
 	global $adb;
 	$profArr=getUserProfile($userId);
-	$no_of_profiles=sizeof($profArr);
+	$no_of_profiles=php7_sizeof($profArr);
 	$actionPerrArr=Array();
 
 	$actionPerrArr=getProfileAllActionPermission($profArr[0]);
@@ -1702,7 +1702,7 @@ function getCurrentUserGroupList($userid = false) {
 
 	require('user_privileges/user_privileges_' . $userid . '.php');
 	$grpList = array();
-	if (sizeof($current_user_groups) > 0) {
+	if (php7_sizeof($current_user_groups) > 0) {
 		$i = 0;
 		foreach ($current_user_groups as $grpid) {
 			array_push($grpList, $grpid);
@@ -1739,7 +1739,7 @@ function constructList($array,$data_type)
 	global $log;
 	$log->debug("Entering constructList(".$array.",".$data_type.") method ...");
 	$list= array();
-	if(sizeof($array) > 0)
+	if(php7_sizeof($array) > 0)
 	{
 		$i=0;
 		foreach($array as $value)
@@ -1780,7 +1780,7 @@ function getListViewSecurityParameter($module)
 						or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=".$current_user->id." and tabid=".$tabid.")
 						or (";
 
-						if(sizeof($current_user_groups) > 0)
+						if(php7_sizeof($current_user_groups) > 0)
 						{
 							  $sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 						}
@@ -1792,7 +1792,7 @@ function getListViewSecurityParameter($module)
 				"or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '".$current_user_parent_role_seq."::%') " .
 				"or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=".$current_user->id." and tabid=".$tabid.") or (";
 
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1805,7 +1805,7 @@ function getListViewSecurityParameter($module)
 				"or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '".$current_user_parent_role_seq."::%') " .
 				"or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=".$current_user->id." and tabid=".$tabid.") or (";
 
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1820,7 +1820,7 @@ function getListViewSecurityParameter($module)
 
 		$sec_query .= " or (";
 
-		if(sizeof($current_user_groups) > 0)
+		if(php7_sizeof($current_user_groups) > 0)
 		{
 			$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 		}
@@ -1832,7 +1832,7 @@ function getListViewSecurityParameter($module)
 		$sec_query .= " and (vtiger_crmentity.smownerid in($current_user->id) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '".$current_user_parent_role_seq."::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=".$current_user->id." and tabid=".$tabid.") ";
 
 		$sec_query .= " or (";
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1854,7 +1854,7 @@ function getListViewSecurityParameter($module)
 			$condition = null;
 		$sec_query .= " and (vtiger_crmentity.smownerid in($current_user->id) $condition or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '".$current_user_parent_role_seq."::%')";
 
-		if(sizeof($current_user_groups) > 0)
+		if(php7_sizeof($current_user_groups) > 0)
 		{
 			$sec_query .= " or ((vtiger_groups.groupid in (". implode(",", $current_user_groups) .")))";
 		}
@@ -1867,7 +1867,7 @@ function getListViewSecurityParameter($module)
 		//Adding crteria for group sharing
 		 $sec_query .= " or ((";
 
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1878,7 +1878,7 @@ function getListViewSecurityParameter($module)
 	{
 		$sec_query .= " and (vtiger_crmentity.smownerid in($current_user->id) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '".$current_user_parent_role_seq."::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=".$current_user->id." and tabid=".$tabid.") or (";
 
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1892,7 +1892,7 @@ function getListViewSecurityParameter($module)
 		//Adding crteria for group sharing
 		 $sec_query .= " or (";
 
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1906,7 +1906,7 @@ function getListViewSecurityParameter($module)
 		//Adding crteria for group sharing
 		 $sec_query .= " or ((";
 
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1918,7 +1918,7 @@ function getListViewSecurityParameter($module)
 
 		$sec_query .= " and (vtiger_crmentity.smownerid in($current_user->id) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '".$current_user_parent_role_seq."::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=".$current_user->id." and tabid=".$tabid.") or ((";
 
-		if(sizeof($current_user_groups) > 0)
+		if(php7_sizeof($current_user_groups) > 0)
 		{
 			$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 		}
@@ -1931,7 +1931,7 @@ function getListViewSecurityParameter($module)
 	{
 		$sec_query .= " and (vtiger_crmentity.smownerid in($current_user->id) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '".$current_user_parent_role_seq."::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=".$current_user->id." and tabid=".$tabid.") or ((";
 
-				if(sizeof($current_user_groups) > 0)
+				if(php7_sizeof($current_user_groups) > 0)
 				{
 					$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 				}
@@ -1947,7 +1947,7 @@ function getListViewSecurityParameter($module)
 
 		$sec_query .= " or (";
 
-		if(sizeof($current_user_groups) > 0)
+		if(php7_sizeof($current_user_groups) > 0)
 		{
 			$sec_query .= " vtiger_groups.groupid in (". implode(",", $current_user_groups) .") or ";
 		}

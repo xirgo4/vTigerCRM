@@ -1040,6 +1040,10 @@ jQuery.Class("Vtiger_Helper_Js",{
         var $parent = selector && $(selector);
 
         return $parent && $parent.length ? $parent : $this.parent();
+    },
+
+    purifyContent: function(content) {
+        return DOMPurify.sanitize(content);
     }
 });
 

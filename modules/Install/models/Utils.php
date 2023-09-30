@@ -128,7 +128,7 @@ class Install_Utils_Model {
 	public static function getSystemPreInstallParameters() {
 		$preInstallConfig = array();
 		// Name => array( System Value, Recommended value, supported or not(true/false) );
-		$preInstallConfig['LBL_PHP_VERSION']	= array(phpversion(), '5.4.0+, 7.0', (version_compare(phpversion(), '5.4.0', '>=')));
+		$preInstallConfig['LBL_PHP_VERSION']	= array(phpversion(), '7.0+,8.0+', (version_compare(phpversion(), '7.0', '>=')));
 		//$preInstallConfig['LBL_IMAP_SUPPORT']	= array(function_exists('imap_open'), true, (function_exists('imap_open') == true));
 		$preInstallConfig['LBL_ZLIB_SUPPORT']	= array(function_exists('gzinflate'), true, (function_exists('gzinflate') == true));
 
@@ -391,6 +391,7 @@ class Install_Utils_Model {
 				if(self::isMySQL($db_type)) {
 					$mysql_server_version = self::getMySQLVersion($serverInfo);
 				}
+				$conn->Execute("SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION'"); /* force friendly mode */
 				$db_sqlmode_support = self::isMySQLSqlModeFriendly($conn);
 				if($create_db && $db_sqlmode_support) {
 					// drop the current database if it exists
@@ -405,6 +406,7 @@ class Install_Utils_Model {
 					$db_creation_failed = true;
 					$createdb_conn = NewADOConnection($db_type);
 					if(@$createdb_conn->Connect($db_hostname, $root_user, $root_password)) {
+						$createdb_conn->Execute("SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION'"); /* force friendly mode */
 						$query = "CREATE DATABASE ".$db_name;
 						if($create_utf8_db == 'true') {
 							if(self::isMySQL($db_type))

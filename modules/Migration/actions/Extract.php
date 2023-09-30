@@ -23,7 +23,7 @@ class Migration_Extract_Action extends Vtiger_Action_Controller {
 		$user->column_fields['user_name'] = $userName;
 		if ($user->doLogin($password)) {
 			$zip = new ZipArchive();
-			$fileName = 'vtiger7.zip';
+			$fileName = 'vtiger8.zip';
 			if ($zip->open($fileName)) {
 				if ($zip->extractTo($root_directory)) {
 					$zip->close();

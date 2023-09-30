@@ -8,6 +8,11 @@
  * All Rights Reserved.
  ************************************************************************************/
 
+if (!file_exists("vendor/autoload.php")) {
+    echo "Please install composer dependencies.";
+    exit;
+}
+
 //Overrides GetRelatedList : used to get related query
 //TODO : Eliminate below hacking solution
 include_once 'config.php';

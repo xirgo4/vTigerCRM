@@ -1964,6 +1964,7 @@ Vtiger.Class("Vtiger_List_Js", {
 		var totalNumberOfRecords = jQuery('#totalCount', listViewContainer).val();
 		var pageNumberElement = jQuery('.pageNumbersText', listViewContainer);
 		var pageRange = pageNumberElement.text();
+		totalNumberOfRecords = app.helper.purifyContent(totalNumberOfRecords);
 		var newPagingInfo = pageRange.trim() + " " + app.vtranslate('of') + " " + totalNumberOfRecords + "  ";
 		var listViewEntriesCount = parseInt(jQuery('#noOfEntries', listViewContainer).val());
 
@@ -1987,7 +1988,8 @@ Vtiger.Class("Vtiger_List_Js", {
 	},
 	registerMoreRecentUpdatesClickEvent: function (container, recordId) {
 		container.find('.moreRecentUpdates').on('click', function () {
-			var recentUpdateURL = "index.php?view=Detail&mode=showRecentActivities&page=1&module=" + app.getModuleName() + "&record=" + recordId + "&tab_label=LBL_UPDATES";
+			recordId = app.helper.purifyContent(recordId);
+			var recentUpdateURL = "index.php?view=Detail&mode=showRecentActivities&page=1&module=" + encodeURIComponent(app.getModuleName()) + "&record=" + encodeURIComponent(recordId) + "&tab_label=LBL_UPDATES";
 			window.location.href = recentUpdateURL;
 		});
 	},

@@ -10,8 +10,9 @@ Settings_Vtiger_List_Js("Settings_Workflows_List_Js", {
     
     triggerCreate : function(url) {
         var selectedModule = jQuery('#moduleFilter').val();
+        selectedModule = app.helper.purifyContent(selectedModule);
         if(selectedModule.length > 0) {
-            url += '&source_module='+selectedModule
+            url += '&source_module='+encodeURIComponent(selectedModule)
         }
         window.location.href = url;
     }
